@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import useData from './Hooks/LoadDataHook';
 import LoadMoreButtons from './Components/LoadMoreButtons';
 import Table from './Components/Table';
 
 function App() {
-  const [data, setData] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    import('../assets/data.json').then(response => {
-      setData(response.default);
-    });
-  });
+  const [data, currentPage, setCurrentPage] = useData();
 
   return (
     <div>
