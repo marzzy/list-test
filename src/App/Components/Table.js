@@ -4,7 +4,7 @@ import './Table.css';
 
 const TableBodyRows = lazy(() => import('./TableComponents/TableBodyRows'));
 
-function Table({ data, currentPage }) {
+function Table({ data, currentPage, sortData }) {
   const [staredItems, handleToggleStar] = useStar();
   
   return (
@@ -13,17 +13,31 @@ function Table({ data, currentPage }) {
         <tr role="row">
           <th />
           <th role="columnheader">
-            نام تغییر دهنده
-            </th>
+            <span>نام تغییر دهنده</span>
+            <div>
+              <i 
+                onClick={sortData.bind(null, 'name', 'desc')}
+                className={`icon-sort-amount-desc`}
+              />
+              <i 
+                onClick={sortData.bind(null, 'name', 'asc')}
+                className={`icon-sort-amount-asc`}
+              />
+              <i 
+                onClick={sortData.bind(null, 'id', 'asc')}
+                className={`icon-paragraph-center`}
+              />
+            </div>
+          </th>
           <th role="columnheader">
             تاریخ
-            </th>
+          </th>
           <th role="columnheader">
             نام آگهی
-            </th>
+          </th>
           <th role="columnheader">
             فیلد
-            </th>
+          </th>
           <th role="columnheader">مقدار قدیمی</th>
           <th role="columnheader">مقدار جدید</th>
         </tr>

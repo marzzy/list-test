@@ -2,7 +2,7 @@ import React from 'react';
 
 function TableBodyRow({ itemData, onToggleStar, isStared }) {
   return (
-    <tr role="row" key={itemData.id} className={isStared ? 'full' : ''}>
+    <tr role="row" key={itemData.id} className={`itemNumber-${itemData.id} ${isStared ? 'full' : ''}`}>
       <td role="cell" onClick={onToggleStar.bind(null, itemData.id)}>
         <i className={`icon-star-${isStared ? 'full' : 'empty'}`} />
       </td>

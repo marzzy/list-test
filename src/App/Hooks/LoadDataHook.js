@@ -1,15 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
+import DataReducer from '../Reducers/DataReducer';
 
 function useData() {
-  const [data, setData] = useState(null);
+  const [data, dispatch] = useReducer(DataReducer, []);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     import('../../assets/data.json').then(response => {
-      setData(response.default);
+      dispatch({ type: 'get', data: response.default})
     });
-  });
+  }, []);
 
-  return [data, currentPage, setCurrentPage];
+  function sortData(sortItem, sortType) {
+    dispatch({ type: 'sort', sortItem, sortType });
+  }
+
+  return [data, currentPage, setCurrentPage, sortData];
 }
 export default useData;

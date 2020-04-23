@@ -4,13 +4,14 @@ import LoadMoreButtons from './Components/LoadMoreButtons';
 import Table from './Components/Table';
 
 function App() {
-  const [data, currentPage, setCurrentPage] = useData();
+  const [data, currentPage, setCurrentPage, sortData] = useData();
 
   return (
     <div>
       <Table 
         data={data}
         currentPage={currentPage}
+        sortData={sortData}
       />
       {!data ? (
         <div>صبر کنید...</div>
