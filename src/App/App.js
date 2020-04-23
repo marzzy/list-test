@@ -1,16 +1,28 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useEffect, useReducer, Suspense, lazy } from 'react';
 import LoadMoreButtons from './LoadMoreButtons';
 import './App.css';
 
-const TableBodyRow = lazy(() => import('./TableBodyRow'));
+const TableBodyRows = lazy(() => import('./TableBodyRows'));
 
 function Loading() {
   return ( <div>صبر کنید...</div> )
 }
 
+function StarReducer(state , action) {
+  switch (action.type) {
+    case 'add':
+      return [...state, action.itemId];
+    case 'remove':
+      return state.filter(item => item !== action.itemId)
+    default:
+      return state;
+  }
+}
+
 function App() {
   const [data, setData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [staredItems, dispatch] = useReducer(StarReducer, []);
 
   useEffect(() => {
     import('../assets/data.json').then(response => {
@@ -20,6 +32,16 @@ function App() {
 
   function handleMore() {
     setCurrentPage(currentPage + 1);
+  }
+
+  function handleToggleStar(itemId) {
+    const newItemIndexInStaredList = staredItems.findIndex(staredItem => staredItem === itemId);
+
+    if (~newItemIndexInStaredList) {
+      dispatch({ type: 'remove', itemId });
+    } else {
+      dispatch({ type: 'add', itemId });
+    }
   }
 
   return (
@@ -47,7 +69,11 @@ function App() {
         <tbody role="rowgroup">
           {data && (
             <Suspense fallback={null}>
-              <TableBodyRow data={data.slice(0,10 * currentPage)} />
+              <TableBodyRows
+                data={data.slice(0,10 * currentPage)}
+                onToggleStar={handleToggleStar}
+                staredItems={staredItems}
+              />
             </Suspense>
           )}
         </tbody>
