@@ -1,35 +1,15 @@
-import React, { useReducer, Suspense, lazy } from 'react';
+import React, { Suspense, lazy } from 'react';
+import useStar from '../Hooks/StarHook';
 import './Table.css';
 
 const TableBodyRows = lazy(() => import('./TableComponents/TableBodyRows'));
 
-function StarReducer(state, action) {
-  switch (action.type) {
-    case 'add':
-      return [...state, action.itemId];
-    case 'remove':
-      return state.filter(item => item !== action.itemId)
-    default:
-      return state;
-  }
-}
-
 function Table({ data, currentPage }) {
-  const [staredItems, dispatch] = useReducer(StarReducer, []);
-
-  function handleToggleStar(itemId) {
-    const newItemIndexInStaredList = staredItems.findIndex(staredItem => staredItem === itemId);
-
-    if (~newItemIndexInStaredList) {
-      dispatch({ type: 'remove', itemId });
-    } else {
-      dispatch({ type: 'add', itemId });
-    }
-  }
+  const [staredItems, handleToggleStar] = useStar();
   
   return (
     <table id="UserLog" role="table">
-      <thead role="rowgroup">
+      <thead>
         <tr role="row">
           <th />
           <th role="columnheader">
@@ -48,7 +28,7 @@ function Table({ data, currentPage }) {
           <th role="columnheader">مقدار جدید</th>
         </tr>
       </thead>
-      <tbody role="rowgroup">
+      <tbody>
         {data && (
           <Suspense fallback={null}>
             <TableBodyRows
