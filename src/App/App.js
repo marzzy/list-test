@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
+import LoadMoreButtons from './LoadMoreButtons';
 import './App.css';
 
 const TableBodyRow = lazy(() => import('./TableBodyRow'));
@@ -9,19 +10,24 @@ function Loading() {
 
 function App() {
   const [data, setData] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     import('../assets/data.json').then(response => {
-      console.log('response', response)
       setData(response.default);
     });
   });
+
+  function handleMore() {
+    setCurrentPage(currentPage + 1);
+  }
 
   return (
     <div>
       <table id="UserLog" role="table">
         <thead role="rowgroup">
           <tr role="row">
+            <th />
             <th role="columnheader">
               نام تغییر دهنده
             </th>
@@ -39,15 +45,18 @@ function App() {
           </tr>
         </thead>
         <tbody role="rowgroup">
-          {!data ? (
-            <Loading />
-          ) : (
-            <Suspense fallback={<Loading />}>
-              <TableBodyRow data={data.length > 15 ? data.splice(15) : data} />
+          {data && (
+            <Suspense fallback={null}>
+              <TableBodyRow data={data.slice(0,10 * currentPage)} />
             </Suspense>
           )}
         </tbody>
       </table>
+      {!data ? (
+        <Loading />
+      ) : (
+        <LoadMoreButtons handleClick={handleMore} currentPage={currentPage} />
+      )}
     </div>
   );
 }

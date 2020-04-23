@@ -1,10 +1,15 @@
 import React from 'react';
+import './TableBodyRow.css';
 
 function TableBodyRow({ data }) {
   return (
     <>
       {data.map(item => (
-        <tr role="row" key={item.id}>
+        <tr role="row" key={item.id} className={`hi-${item.id} full`}>
+          <td role="cell">
+            <i class="icon-star-full" />
+            <i class="icon-star-empty" />
+          </td>
           <td role="cell">
             {item.name}
           </td>
