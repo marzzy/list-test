@@ -1,13 +1,15 @@
 import React from 'react';
-import useData from './Hooks/LoadDataHook';
+import { useLocation } from 'react-router-dom';
+import useData from './Hooks/DataHook';
 import LoadMoreButtons from './Components/LoadMoreButtons';
 import Table from './Components/Table';
 
 function App() {
-  const [data, currentPage, setCurrentPage, sortData] = useData();
+  const initLocation = useLocation();
+  const [data, currentPage, setCurrentPage, sortData] = useData(initLocation);
 
   return (
-    <div>
+    <>
       <Table 
         data={data}
         currentPage={currentPage}
@@ -20,7 +22,7 @@ function App() {
           setCurrentPage={setCurrentPage} currentPage={currentPage}
         />
       )}
-    </div>
+    </>
   );
 }
 

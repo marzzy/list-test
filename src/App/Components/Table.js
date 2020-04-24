@@ -1,4 +1,5 @@
 import React, { Suspense, lazy } from 'react';
+import { useHistory } from 'react-router-dom';
 import useStar from '../Hooks/StarHook';
 import './Table.css';
 
@@ -6,7 +7,8 @@ const TableBodyRows = lazy(() => import('./TableComponents/TableBodyRows'));
 
 function Table({ data, currentPage, sortData }) {
   const [staredItems, handleToggleStar] = useStar();
-  
+  let history = useHistory();
+
   return (
     <table id="UserLog" role="table">
       <thead>
@@ -16,15 +18,15 @@ function Table({ data, currentPage, sortData }) {
             <span>نام تغییر دهنده</span>
             <div>
               <i 
-                onClick={sortData.bind(null, 'name', 'desc')}
+                onClick={sortData.bind(null, 'name', 'desc', history)}
                 className={`icon-sort-amount-desc`}
               />
               <i 
-                onClick={sortData.bind(null, 'name', 'asc')}
+                onClick={sortData.bind(null, 'name', 'asc', history)}
                 className={`icon-sort-amount-asc`}
               />
               <i 
-                onClick={sortData.bind(null, 'id', 'asc')}
+                onClick={sortData.bind(null, 'id', 'asc', history)}
                 className={`icon-paragraph-center`}
               />
             </div>
