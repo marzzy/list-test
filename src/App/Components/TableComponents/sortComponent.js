@@ -1,11 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import './SortComponent.css';
 
 function SortComponent({ sortData, sortItem }) {
   let history = useHistory();
 
   return (
-    <div>
+    <div className="sortBox">
       <i
         onClick={sortData.bind(null, sortItem, 'desc', history)}
         className={`icon-sort-amount-desc`}

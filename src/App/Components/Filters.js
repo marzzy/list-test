@@ -1,5 +1,6 @@
 import React, { useState, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
+import './Filters.css';
 
 function filterLabelReducer(state, action) {
   switch (action.type) {
@@ -51,7 +52,7 @@ function Filters({ filterData, resetData }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form id="filterBox" onSubmit={handleSubmit}>
         <label>
           فیلتر بر اساس :
           <select value={filterType} onChange={changeFilterType}>
@@ -69,21 +70,28 @@ function Filters({ filterData, resetData }) {
             onChange={modifyFilterValue}
           />
         </label>
-        <input type="submit" value="جستجو" />
-        <button type="button" onClick={handleResetData} >
-          جستجوی جدید
-        </button>
+        <div className="action-box">
+          <input type="submit" value="جستجو" />
+          <button type="button" onClick={handleResetData} >
+            جستجوی جدید
+          </button>
+        </div>
       </form>
-      <div>
-        فیلتر های استفاده شده 
-        <br />
-        {filterLabel.map(filterItem => {
-          const [type, value] = filterItem;
-          
+      <section className="filterLabelBox">
+        <header>
+          فیلتر های استفاده شده :
+        </header>
+        <div>
+          {filterLabel.map(filterItem => {
+            const [type, value] = filterItem;
 
-          return (<span key={value}>{type} : {value}</span>) 
-        })}
-      </div>
+            return (<span key={value} className="filterLabel">{type} - {value}</span>)
+          })}
+          {filterLabel.length === 0 && (
+            <p> هنوز از فیلتری استفاده نکرده اید.</p>
+          )}
+        </div>
+      </section>
     </>
   );
 }

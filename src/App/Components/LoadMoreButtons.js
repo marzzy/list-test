@@ -1,4 +1,5 @@
 import React from 'react';
+import './LoadMoreButtons.css';
 
 function LoadMoreButtons({ setCurrentPage, currentPage}) {
   function handleMore() {
@@ -7,7 +8,7 @@ function LoadMoreButtons({ setCurrentPage, currentPage}) {
   
   return (
     <>
-      <button type="button" onClick={handleMore}>
+      <button className="loadMoreButtons" type="button" onClick={handleMore}>
         بیشتر ...
       </button>
     </>

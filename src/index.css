@@ -1,5 +1,23 @@
 body {
   margin: 0;
   direction: rtl;
+  max-width: 1800px;
+  margin: 0 auto;
+  font-size: 18px;
 }
 
+input[type=submit] , button {
+  background-color: #9873ff;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+input[type=submit]:hover ,
+button:hover {
+  background-color: #7d4fff;
+}

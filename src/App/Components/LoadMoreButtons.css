@@ -1,0 +1,15 @@
+.loadMoreButtons {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+@media(max-device-width: 680px)  {
+  .loadMoreButtons {
+    width: 100%;
+    margin-top: 8px;
+  }
+}

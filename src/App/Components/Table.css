@@ -1,17 +1,20 @@
-
-	/* @media
-	  only screen 
-    and (max-width: 760px), (min-device-width: 768px) 
-    and (max-device-width: 1024px)  { */
-
 #UserLog {
   border-collapse: collapse;
-  margin: 0 auto;
+  margin-top: 16px;
+  width: 100%;
 }
 
 #UserLog td, #UserLog th {
   border: 1px solid #ddd;
   padding: 8px;
+  font-weight: normal;
+}
+
+@media(min-device-width: 1200px) {
+  #UserLog tr {
+    display: grid;
+    grid-template-columns: 0.25fr 2fr 1fr 3fr 1fr 3fr 3fr;
+  }
 }
 
 #UserLog tr:nth-child(even){background-color: #f2f2f2;}
@@ -19,7 +22,7 @@
 #UserLog tr:hover {background-color: #ddd;}
 
 #UserLog tr.full {
-  background-color: #68ff0069;
+  background-color: #9873ff5e;
 }
 
 #UserLog th {
@@ -30,3 +33,6 @@
   color: white;
 }
 
+.tableWrapper {
+  overflow-x:auto
+}
