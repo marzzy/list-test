@@ -25,6 +25,12 @@ function useData(initLocation) {
     setQueryParams(history, { sort: [sortItem, sortType] });
   }
 
+  function filterData(filterValue, filterType, history) {
+    dispatch({ type: 'filter', filterValue, filterType });
+
+    setQueryParams(history, { filter: [filterValue, filterType] });
+  }
+
   function modifyInitDataBasedOnQP() {
     const initQueryParamKeies = getQueryParamsKeies(initLocation);
 
@@ -39,6 +45,6 @@ function useData(initLocation) {
     }
   }
 
-  return [data, currentPage, setCurrentPage, sortData];
+  return [data, currentPage, setCurrentPage, sortData, filterData];
 }
 export default useData;

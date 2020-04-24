@@ -1,4 +1,6 @@
-function SortReducer(state, action) {
+import sortByType from '../Helpers/Sort';
+
+function DataReducer(state, action) {
   switch (action.type) {
     case 'get':
       return [
@@ -6,33 +8,18 @@ function SortReducer(state, action) {
         ...action.data
       ]
     case 'sort':
-      console.log('state, action', state, action);
-      return AlphabetlySortedState(state, action.sortType, action.sortItem);
+      return sortByType(state, action.sortType, action.sortItem);
     case 'filter':
+      return filterBasedOnValue(state, action.filterType, action.filterValue);
     default:
       return state;
   }
 }
 
-export default SortReducer;
+export default DataReducer;
 
-function AlphabetlySortedState(mainState, sortType, sortItem) {
+
+function filterBasedOnValue(mainState, filterType, filterValue) {
   let newState = [...mainState];
-  switch (sortType) {
-    case 'asc':
-      return newState.sort((itamA, itemB) => {
-        if (itamA[sortItem] > itemB[sortItem]) return 1;
-        if (itamA[sortItem] === itemB[sortItem]) return 0;
-        if (itamA[sortItem] < itemB[sortItem]) return -1;
-      });
-    case 'desc':
-      return newState.sort((itamA, itemB) => {
-        if (itamA[sortItem] < itemB[sortItem]) return 1;
-        if (itamA[sortItem] === itemB[sortItem]) return 0;
-        if (itamA[sortItem] > itemB[sortItem]) return -1;
-      });
-    case 'unsort':
-    default:
-      return mainState
-  }
+  return newState.filter(item => item[filterType] === filterValue);
 }
