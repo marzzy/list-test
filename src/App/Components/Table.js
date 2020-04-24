@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import SortComponent from './TableComponents/sortComponent';
+import SortComponent from './TableComponents/SortComponent';
 import useStar from '../Hooks/StarHook';
 import './Table.css';
 

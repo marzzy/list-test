@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useData from './Hooks/DataHook';
 import LoadMoreButtons from './Components/LoadMoreButtons';
@@ -7,7 +7,8 @@ import Filters from './Components/Filters';
 
 function App() {
   const initLocation = useLocation();
-  const [data, currentPage, setCurrentPage, sortData, filterData, resetData] = useData(initLocation);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [data, sortData, filterData, resetData] = useData(initLocation);
 
   return (
     <>
@@ -20,13 +21,19 @@ function App() {
         currentPage={currentPage}
         sortData={sortData}
       />
-      {!data ? (
+      {data.length === 0 && (
         <div>صبر کنید...</div>
-      ) : (
-        <LoadMoreButtons 
+      )}
+      {data.length >= 10 && data && (
+        <LoadMoreButtons
           setCurrentPage={setCurrentPage} currentPage={currentPage}
         />
       )}
+      {!data &&
+        <p>
+          برای این جستجو داده ای پیدا نشد!
+        </p>
+      }
     </>
   );
 }

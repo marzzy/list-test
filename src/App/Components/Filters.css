@@ -47,3 +47,11 @@
 	color: white;
 	font-size: 14px;
 }
+
+.newFiltersButton {
+  background-color: #a60202;
+}
+
+.newFiltersButton:hover {
+  background-color: #5b0000;
+}

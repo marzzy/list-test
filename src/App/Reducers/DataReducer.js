@@ -20,5 +20,6 @@ export default DataReducer;
 
 function filterBasedOnValue(mainState, filterType, filterValue) {
   let newState = [...mainState];
-  return newState.filter(item => item[filterType] === filterValue);
+  let arrResult = newState.filter(item => item[filterType] === filterValue);
+  return arrResult.length > 0 ? arrResult : false;
 }

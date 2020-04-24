@@ -7,7 +7,6 @@ import { setQueryParams,
 
 function useData(initLocation) {
   const [data, dispatch] = useReducer(DataReducer, []);
-  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     import('../../assets/data.json').then(response => {
@@ -51,6 +50,6 @@ function useData(initLocation) {
     }
   }
 
-  return [data, currentPage, setCurrentPage, sortData, filterData, resetData];
+  return [data, sortData, filterData, resetData];
 }
 export default useData;
