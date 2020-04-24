@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import DataReducer from '../Reducers/DataReducer';
 import { setQueryParams,
   findQueryParamsWithKey,
