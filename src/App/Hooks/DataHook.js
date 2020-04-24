@@ -17,7 +17,7 @@ function useData(initLocation) {
         modifyInitDataBasedOnQP
       );
     });
-  }, [initLocation]);
+  }, []);
 
   function sortData(sortItem, sortType, history) {
     dispatch({ type: 'sort', sortItem, sortType });

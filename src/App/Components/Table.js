@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { useHistory } from 'react-router-dom';
+import SortComponent from './TableComponents/sortComponent';
 import useStar from '../Hooks/StarHook';
 import './Table.css';
 
@@ -7,7 +7,6 @@ const TableBodyRows = lazy(() => import('./TableComponents/TableBodyRows'));
 
 function Table({ data, currentPage, sortData }) {
   const [staredItems, handleToggleStar] = useStar();
-  let history = useHistory();
 
   return (
     <table id="UserLog" role="table">
@@ -16,32 +15,26 @@ function Table({ data, currentPage, sortData }) {
           <th />
           <th role="columnheader">
             <span>نام تغییر دهنده</span>
-            <div>
-              <i 
-                onClick={sortData.bind(null, 'name', 'desc', history)}
-                className={`icon-sort-amount-desc`}
-              />
-              <i 
-                onClick={sortData.bind(null, 'name', 'asc', history)}
-                className={`icon-sort-amount-asc`}
-              />
-              <i 
-                onClick={sortData.bind(null, 'id', 'asc', history)}
-                className={`icon-paragraph-center`}
-              />
-            </div>
+            <SortComponent sortData={sortData} sortItem="name"/>
           </th>
           <th role="columnheader">
-            تاریخ
+            <span>تاریخ</span>
+            <SortComponent sortData={sortData} sortItem="date"/>
           </th>
           <th role="columnheader">
-            نام آگهی
+            <span>نام آگهی</span>
+            <SortComponent sortData={sortData} sortItem="title"/>
           </th>
           <th role="columnheader">
-            فیلد
+            <span>فیلد</span>
+            <SortComponent sortData={sortData} sortItem="field"/>
           </th>
-          <th role="columnheader">مقدار قدیمی</th>
-          <th role="columnheader">مقدار جدید</th>
+          <th role="columnheader">
+            <span>مقدار قدیمی</span>
+            </th>
+          <th role="columnheader">
+            <span>مقدار جدید</span>
+          </th>
         </tr>
       </thead>
       <tbody>
