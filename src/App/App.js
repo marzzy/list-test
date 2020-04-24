@@ -7,12 +7,13 @@ import Filters from './Components/Filters';
 
 function App() {
   const initLocation = useLocation();
-  const [data, currentPage, setCurrentPage, sortData, filterData] = useData(initLocation);
+  const [data, currentPage, setCurrentPage, sortData, filterData, resetData] = useData(initLocation);
 
   return (
     <>
       <Filters
         filterData={filterData}
+        resetData={resetData}
       />
       <Table 
         data={data}

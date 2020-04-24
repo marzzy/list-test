@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 
+function filterLabelReducer(state, action) {
+  switch (action.type) {
+    case 'add':
+      return [...state, action.newItem];
+    case 'clear':
+      return [];
+    default:
+      return state;
+  }
+}
 
-function Filters({ filterData }) {
+const options = [
+  ['name', 'نام تغییر دهنده'],
+  ['date', 'تاریخ'],
+  ['title', 'نام آگهی'],
+  ['field', 'فیلد'],
+  ['old_value', 'مقدار قدیمی'],
+  ['new_value', 'مقدار جدید'],
+];
+
+function Filters({ filterData, resetData }) {
+  const [filterLabel, dispatch] = useReducer(filterLabelReducer, []);
   const [filterType, setFilterType] = useState('name');
   const [filterValue, setFilterValue] = useState('');
   let history = useHistory();
+  
 
   function handleSubmit(e) {
     e.preventDefault();
-    filterData(filterValue, filterType, history)
+    filterData(filterValue, filterType, history);
+    dispatch({ type: 'add', newItem: [filterValue, filterType]});
   }
 
   function changeFilterType(e) {
@@ -20,30 +42,49 @@ function Filters({ filterData }) {
     setFilterValue(e.target.value);
   }
 
+  function handleResetData() {
+    resetData();
+    setFilterType('name');
+    setFilterValue('');
+    dispatch({ type: 'clear' });
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        فیلتر بر اساس :
-        <select value={filterType} onChange={changeFilterType}>
-          <option value="name">نام تغییر دهنده </option>
-          <option value="date">تاریخ </option>
-          <option value="title">نام آگهی </option>
-          <option value="field">فیلد </option>
-          <option value="old_value">مقدار قدیمی </option>
-          <option value="new_value">مقدار جدید </option>
-        </select>
-      </label>
-      <label>
-        مقدار مورد جستجو
-        <input
-          type="text"
-          name="search-input"
-          value={filterValue}
-          onChange={modifyFilterValue}
-        />
-      </label>
-      <input type="submit" value="جستجو" />
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <label>
+          فیلتر بر اساس :
+          <select value={filterType} onChange={changeFilterType}>
+            {options.map(([value , persianVal]) => (
+              <option key={value} value={value}>{persianVal}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          مقدار مورد جستجو
+          <input
+            type="text"
+            name="search-input"
+            value={filterValue}
+            onChange={modifyFilterValue}
+          />
+        </label>
+        <input type="submit" value="جستجو" />
+        <button type="button" onClick={handleResetData} >
+          جستجوی جدید
+        </button>
+      </form>
+      <div>
+        فیلتر های استفاده شده 
+        <br />
+        {filterLabel.map(filterItem => {
+          const [type, value] = filterItem;
+          
+
+          return (<span key={value}>{type} : {value}</span>) 
+        })}
+      </div>
+    </>
   );
 }
 

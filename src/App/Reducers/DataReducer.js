@@ -4,7 +4,6 @@ function DataReducer(state, action) {
   switch (action.type) {
     case 'get':
       return [
-        ...state,
         ...action.data
       ]
     case 'sort':

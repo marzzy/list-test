@@ -31,6 +31,12 @@ function useData(initLocation) {
     setQueryParams(history, { filter: [filterValue, filterType] });
   }
 
+  function resetData() {
+    import('../../assets/data.json').then(response => {
+      dispatch({ type: 'get', data: response.default })
+    });
+  }
+
   function modifyInitDataBasedOnQP() {
     const initQueryParamKeies = getQueryParamsKeies(initLocation);
 
@@ -45,6 +51,6 @@ function useData(initLocation) {
     }
   }
 
-  return [data, currentPage, setCurrentPage, sortData, filterData];
+  return [data, currentPage, setCurrentPage, sortData, filterData, resetData];
 }
 export default useData;
